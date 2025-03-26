@@ -1,8 +1,20 @@
 "use client"
-import { thglData } from "../lib/thgldata";
+import { thglData,thglList } from "../lib/thgldata";
 import Image from "next/image"
 import { useState } from "react";
 import GLPlayModal from "@/app/components/GLPlayModal";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+
+
 const categoryColors: { [key: string]: { borderColor: string, textColor: string } } = {
   "โรแมนติก": { borderColor: "border-pink-500", textColor: "text-pink-500" },
   "โรแมนติกดราม่า": { borderColor: "border-[#00cbc3]", textColor: "text-[#00cbc3]" },
@@ -31,15 +43,48 @@ export default function GlListAdd(){
 
   const [selectedItem, setSelectedItem] = useState<thGLDataType | null>(null); //keep select item
   const [isOpen, setOpen] = useState(false);
+  const [selectCategory,setSelectCategory]=useState("เลือกตามหมวดหมู่...");
+  const [sortdata,setSortdata]=useState<thglList[]>(thglData);
 
   const handleOpenModal = (item: thGLDataType) => {
     console.log("Opening modal for:", item.title); // Debugging
     setSelectedItem(item);
     setOpen(true);
   };
+
+  const handleSelectCategory=(selectCategory: string)=>{
+      setSelectCategory(selectCategory);
+      setSortdata(thglData.filter((item) => item.category === selectCategory));
+    };
+
     return(
+      <div>
+        <div className="flex w-full justify-end">
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <Button variant="outline">{selectCategory}</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56">
+            <DropdownMenuLabel>ประเภท</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuRadioGroup
+              value={selectCategory}
+              onValueChange={(value) => handleSelectCategory(value)}
+            >
+              <DropdownMenuRadioItem value="โรแมนติก">โรแมนติก</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="โรแมนติกดราม่า">โรแมนติกดราม่า</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="ชีวิตประจำวัน">ชีวิตประจำวัน</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="แฟนตาซี">แฟนตาซี</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="ตลก">ตลก</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="ระทึกขวัญ/สืบสวน">ระทึกขวัญ/สืบสวน</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="สยองขวัญ">สยองขวัญ</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="แอ็กชัน">แอ็กชัน</DropdownMenuRadioItem>
+            </DropdownMenuRadioGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-8 gap-6">
-          {thglData.map((item)=>{
+          {sortdata.map((item)=>{
             const categoryStyle = categoryColors[item.category.toLowerCase()] || { borderColor: "border-[#00cbc3]", textColor: "text-[#00cbc3]" };
             return(
               <div key={item.id} className="relative h-50 group" onClick={() => handleOpenModal(item)}>
@@ -76,5 +121,6 @@ export default function GlListAdd(){
         />
       ) : null}
         </div>
+      </div>
     )
 }
