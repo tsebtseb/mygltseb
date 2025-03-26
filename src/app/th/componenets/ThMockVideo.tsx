@@ -2,28 +2,28 @@
 import { Button } from "@/components/ui/button";
 import { CirclePlay } from 'lucide-react';
 import { useState } from "react";
-import GLPlayModal from "./GLPlayModal";
+import GLPlayModal from "@/app/components/GLPlayModal";
 
 interface GLDataType {
     id: number;
     title: string;
-    type: "novel" | "series" | "comic";
+    type: "นิยาย" | "ซีรี่ส์" | "คอมมิค";
     creator: string;
     category: string;
-    status: "ongoing" | "finish";
+    status: "จบแล้ว" | "ยังไม่จบ";
     noOfEpisode: number;
     overview: string;
   }
 
   const MockData: GLDataType={
     id: 1,
-    title: "The Secret of Us",
-    type: "series",
-    creator: "Saratswadee Wongsomphet",
-    category: "romance-drama",
-    status: "finish",
+    title: "ใจซ่อนรัก",
+    type: "ซีรี่ส์",
+    creator: "สรัสวดี วงศ์สมเพ็ชร",
+    category: "โรแมนติกดราม่า",
+    status: "จบแล้ว",
     noOfEpisode: 8,
-    overview: "A captivating romance drama that follows Fahlada, an elegant dermatologist who hides a painful past. Still scarred by her breakup with her ex-girlfriend, Earn Sanithada, she has built high walls around her heart. But fate intervenes when the Earn, a rising star actress, returns—lively, charming, and determined to win back the love she lost and take back her P’Mhor.",    
+    overview: "เรื่องราวโรแมนติกดราม่าของหมอฟ้าลดา หมอผิวหนังผู้เพอร์เฟคแต่กลับมีความหลังที่ข่มขื่นกับรักครั้งเก่า เอิน สนิธาดา ฟ้าลดาพยายามสร้างกำแพงปิดบังความรู้สึกของตัวเองไม่ให้หวั่นไหวอีกครั้ง แจ่โชคชะตากลับนำพาให้ทั้งสองมาเจอกันอีกครั้ง พร้อมกับน้องเอินที่กลับมาเป็ยดาวรุ่งสดใสที่พร้อมเอาหัวใจพี่หมอกลับคืนมา.",    
   }
 export default function MockVideo(){
     const [isOpen, setOpen] = useState(false);
@@ -38,7 +38,7 @@ export default function MockVideo(){
                 <div className="flex gap-x-3 mt-3">
                     <Button className="bg-white text-black px-6 py-5 hover:text-white" onClick={()=>setOpen(true)}>
                         <CirclePlay />
-                         See more
+                         อ่านต่อ
                     </Button>
                 </div>
                  <GLPlayModal

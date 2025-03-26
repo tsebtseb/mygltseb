@@ -24,41 +24,41 @@ interface linkProps {
 }
 
 const links: linkProps[] = [
-  { name: "Home", href: "/" },
-  { name: "Novel", href: "/novel" },
-  { name: "Comic", href: "/comic" },
-  { name: "Series", href: "/series" },
+  { name: "หน้าแรก", href: "/th" },
+  { name: "นิยาย", href: "/th/novel" },
+  { name: "คอมมิค", href: "/th/comic" },
+  { name: "ซีรี่ส์", href: "/th/series" },
 ];
 
 
-export default function Navbar() {
+export default function ThNavbar() {
   const pathname = usePathname();
 
   const router = useRouter();
   const [selectedLanguage, setSelectedLanguage] = useState(
-    pathname.startsWith("/th") ? "Thai" : "English"
+    pathname.startsWith("/th") ? "ไทย" : "อังกฤษ"
   ); //current state of select language
 
   const handleLanguageChange = (language: string) => {
     setSelectedLanguage(language);
-    const url = new URL(window.location.href);
-    let newPath = url.pathname;
-    if(language === "English"){
+    const url = new URL(window.location.href); //get full url including query
+    let newPath = url.pathname; //extract only path nothing else remove
+    if(language === "อังกฤษ"){
       newPath=pathname.replace(/^\/th/, "") || "/";
     }else{
-      if(!newPath.startsWith("/th")&&language==="Thai"){
+      if(!newPath.startsWith("/th")&&language==="ไทย"){
         newPath=`/th${pathname}`;
       }
     }
-    router.push(newPath+url.search || "/");
+    router.push(newPath+url.search || "/"); //update url including query params
   }; //if user select en remove /th from url,if select th-add /th to current url
   return (
     <div className="w-full mx-auto items-center justify-between px-5 sm:px-6 py-3 lg:px-8 flex">
       <div className="flex items-center justify-center sm:mr-auto">
-        <Link href="/" className="w-26 mx-2">
+        <Link href="/th" className="w-26 mx-2">
           <Image src={GLLogo} alt="logo" priority />
         </Link>
-        <Link href="/" className="w-40 ml-2 overflow-hidden">
+        <Link href="/th" className="w-40 ml-2 overflow-hidden">
           <Image src={TextGLLogo} alt="logo" priority />
         </Link>
         <ul className="lg:flex gap-x-6 ml-16 hidden justify-between">
@@ -98,19 +98,19 @@ export default function Navbar() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
-            <DropdownMenuLabel>Language</DropdownMenuLabel>
+            <DropdownMenuLabel>ภาษา</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuCheckboxItem
-              checked={selectedLanguage === "English"}
-              onCheckedChange={() => handleLanguageChange("English")}
+              checked={selectedLanguage === "อังกฤษ"}
+              onCheckedChange={() => handleLanguageChange("อังกฤษ")}
             >
-              English
+              อังกฤษ
             </DropdownMenuCheckboxItem>
             <DropdownMenuCheckboxItem
-              checked={selectedLanguage === "Thai"}
-              onCheckedChange={() => handleLanguageChange("Thai")}
+              checked={selectedLanguage === "ไทย"}
+              onCheckedChange={() => handleLanguageChange("ไทย")}
             >
-              Thai
+              ไทย
             </DropdownMenuCheckboxItem>
           </DropdownMenuContent>
         </DropdownMenu>
