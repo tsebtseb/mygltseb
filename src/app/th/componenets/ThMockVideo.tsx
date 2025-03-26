@@ -32,7 +32,7 @@ export default function MockVideo(){
             <video poster='/allgl/tsou.jpg' autoPlay muted loop
             src="/video/tsouvideo.mp4" className="w-full absolute top-0 left-0 h-[60vh] object-cover -z-10 brightness-[60%]" >
             </video>
-            <div className="absolute w-[90%] lg:w-[40%] mx-auto mb-2">
+            <div className="absolute w-[90%] lg:w-[40%] mx-auto mb-6">
                 <h1 className="text-white text-4xl md:test-5xl lg:text-6xl font-bold">{MockData.title}</h1>
                 <p className="text-white text-lg mt-4 line-clamp-3">{MockData.overview}</p>
                 <div className="flex gap-x-3 mt-3">
