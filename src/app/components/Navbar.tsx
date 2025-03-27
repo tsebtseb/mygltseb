@@ -89,7 +89,11 @@ export default function Navbar() {
         </ul>
       </div>
       <div className="flex items-center gap-x-8 justify-center">
-        <Search className="w-7 h-7 text-gray-300 cursor-pointer hover:text-white" />
+        <Link href="/search" >
+        {pathname==='/search' ?(
+          <Search className="w-9 h-9 text-white cursor-pointer hover:text-gray-500 border border-white rounded-lg py-1 px-1 hover:border-gray-500" />
+        ):<Search className="w-7 h-7 text-gray-300 cursor-pointer hover:text-white" />}
+        </Link>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="sm:w-7 sm:overflow-hidden lg:w-auto ">
